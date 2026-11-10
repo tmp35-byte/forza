@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chrome T-Rex Dino Runner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= FRONT PAGE / INTRO SCREEN ================= -->
+  <section id="frontPage" class="front-page">
+    <div class="hero-container">
+      <div class="retro-badge">CLASSIC 8-BIT RUNNER</div>
+      <div class="dino-hero-icon">🦖</div>
+      <h1 class="hero-title">CHROME T-REX RUNNER</h1>
+      <p class="hero-tagline">No internet? No problem! Dash across the prehistoric desert, leap over prickly cacti, duck under soaring pterodactyls, and chase the ultimate high score!</p>
+
+      <!-- Features Cards -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔊</div>
+          <h3>Retro 8-Bit Audio</h3>
+          <p>Authentic synthesized jump sounds, crash noises, and milestone chimes powered by Web Audio API.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌓</div>
+          <h3>Day & Night Cycles</h3>
+          <p>Survive long enough to watch the scorching desert sky transition into dark moonlit night mode.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Dynamic Speed</h3>
+          <p>The pace steadily escalates as your score climbs. Dodge tall cacti, cactus clusters, and agile birds.</p>
+        </div>
+      </div>
+
+      <!-- Controls Guide -->
+      <div class="intro-controls-box">
+        <h3>HOW TO PLAY</h3>
+        <div class="control-items">
+          <div class="control-row">
+            <span class="key-badge"><span>Space</span> or <span>↑</span></span>
+            <span class="control-desc">Jump over obstacles</span>
+          </div>
+          <div class="control-row">
+            <span class="key-badge"><span>↓</span> Arrow Down</span>
+            <span class="control-desc">Duck beneath high-flying pterodactyls</span>
+          </div>
+          <div class="control-row">
+            <span class="key-badge"><span>Tap Canvas</span></span>
+            <span class="control-desc">Jump on smartphones & tablets</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Character Selector -->
+      <div class="selection-box">
+        <h3>CHOOSE YOUR RUNNER</h3>
+        <div class="character-cards" id="characterCards">
+          <div class="char-card active" data-char="dino">
+            <div class="char-avatar">🦖</div>
+            <div class="char-name">Classic T-Rex</div>
+            <div class="char-badge">Classic</div>
+          </div>
+          <div class="char-card" data-char="ninja">
+            <div class="char-avatar">🥷</div>
+            <div class="char-name">Shadow Ninja</div>
+            <div class="char-badge">Agile</div>
+          </div>
+          <div class="char-card" data-char="robot">
+            <div class="char-avatar">🤖</div>
+            <div class="char-name">Cyber Mech</div>
+            <div class="char-badge">Futuristic</div>
+          </div>
+          <div class="char-card" data-char="cat">
+            <div class="char-avatar">🐱</div>
+            <div class="char-name">Pixel Cat</div>
+            <div class="char-badge">Speedy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme / Environment Selector -->
+      <div class="selection-box">
+        <h3>CHOOSE YOUR ENVIRONMENT</h3>
+        <div class="theme-buttons" id="themeButtons">
+          <button class="theme-btn active" data-theme="desert">🏜️ Desert (Classic)</button>
+          <button class="theme-btn" data-theme="cyberpunk">🌆 Cyberpunk City</button>
+          <button class="theme-btn" data-theme="jungle">🌴 Prehistoric Jungle</button>
+          <button class="theme-btn" data-theme="volcano">🌋 Volcanic Wasteland</button>
+        </div>
+      </div>
+
+      <!-- High Score Display Banner -->
+      <div class="high-score-banner">
+        <span>🏆 Current High Score:</span> <strong id="introHighScore">00000</strong>
+      </div>
+
+      <!-- Action Button -->
+      <button id="launchGameBtn" class="btn btn-large">▶ START PLAYING</button>
+    </div>
+  </section>
+
+  <!-- ================= ACTIVE GAME SCREEN ================= -->
+  <section id="gameSection" class="game-wrapper hidden">
+    <div class="header">
+      <div class="header-left">
+        <button id="backToHomeBtn" class="btn-subtle" title="Back to Welcome Page">🏠 Home</button>
+        <span class="title">🦖 T-REX RUNNER</span>
+      </div>
+      <div class="header-right">
+        <select id="gameCharSelect" class="theme-dropdown" aria-label="Select Character">
+          <option value="dino">🦖 T-Rex</option>
+          <option value="ninja">🥷 Ninja</option>
+          <option value="robot">🤖 Robot</option>
+          <option value="cat">🐱 Cat</option>
+        </select>
+        <select id="gameThemeSelect" class="theme-dropdown" aria-label="Select Theme">
+          <option value="desert">🏜️ Desert</option>
+          <option value="cyberpunk">🌆 Cyberpunk</option>
+          <option value="jungle">🌴 Jungle</option>
+          <option value="volcano">🌋 Volcano</option>
+        </select>
+        <button id="soundToggle" class="sound-btn" aria-label="Toggle Sound">🔊 Sound ON</button>
+      </div>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="gameCanvas" width="800" height="250"></canvas>
+      
+      <!-- In-Game Overlay for Start / Game Over -->
+      <div id="overlay" class="overlay">
+        <h1 id="overlayTitle">READY TO RUN?</h1>
+        <p id="overlaySubtitle">Press Space or click Start to begin!</p>
+        <button id="startBtn" class="btn">START GAME</button>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <div class="key-badge"><span>Space</span> / <span>↑</span> Jump</div>
+      <div class="key-badge"><span>↓</span> Duck</div>
+      <div class="key-badge"><span>Tap Screen</span> Jump on Mobile</div>
+    </div>
+  </section>
+
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

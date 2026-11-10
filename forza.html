@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORZA HORIZON: NEXT-GEN GRAPHICS</title>
+  <link rel="stylesheet" href="forza_style.css">
+  <!-- Three.js r128 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- 3D WebGL Canvas Container -->
+  <div id="game-container"></div>
+
+  <!-- Speed Blur / Motion Screen Effect -->
+  <div id="motionBlur" class="motion-blur"></div>
+
+  <!-- HUD Overlay -->
+  <div id="hud">
+    <!-- Top Bar -->
+    <div class="hud-top">
+      <div class="festival-logo">
+        <span class="logo-accent">HORIZON</span> 6 <span class="badge-hdr">4K ULTRA GRAPHICS</span>
+      </div>
+      <div class="hud-stats">
+        <div class="stat-pill"><span class="label">SPEED TRAP</span> <strong id="bestSpeedText">0 MPH</strong></div>
+        <div class="stat-pill"><span class="label">SKILL COMBO</span> <strong id="driftScoreText">0 PTS</strong></div>
+        <div class="stat-pill"><span class="label">HORIZON LEVEL</span> <strong id="xpText">LVL 1</strong></div>
+      </div>
+      <div class="hud-actions">
+        <button id="carSelectBtn" class="hud-btn highlight" title="Switch Supercar Model">🏎️ CAR: <span id="currentCarName">KOENIGSEGG JESKO</span></button>
+        <button id="carColorBtn" class="hud-btn" title="Change Paint Finish">🎨 PAINT</button>
+        <button id="timeToggleBtn" class="hud-btn" title="Toggle Golden Hour / Night">🌅 DUSK</button>
+        <button id="viewToggleBtn" class="hud-btn" title="Toggle Camera Angle (C)">🎥 CAM (C)</button>
+        <button id="audioToggleBtn" class="hud-btn">🔊 AUDIO</button>
+      </div>
+    </div>
+
+    <!-- Drift / Skill Combo Pop-up with Horizon Score Chain -->
+    <div id="driftPopup" class="drift-popup hidden">
+      <div class="drift-badge" id="skillBadge">ULTIMATE DRIFT</div>
+      <div id="driftPoints" class="drift-points">+1,250</div>
+      <div class="drift-multiplier" id="driftMultiplier">x 3.0</div>
+    </div>
+
+    <!-- Bottom Dashboard: Controls & Speedometer Cluster -->
+    <div class="hud-bottom">
+      <div class="controls-hint">
+        <div class="key-group">
+          <span class="key">W</span> Throttle
+          <span class="key">S</span> Brake / Reverse
+          <span class="key">A</span> Steer Left
+          <span class="key">D</span> Steer Right
+        </div>
+        <div class="key-group">
+          <span class="key">SPACE</span> Handbrake Drift
+          <span class="key">SHIFT</span> Twin NOS Boost
+          <span class="key">V</span> Change Car
+          <span class="key">C</span> Camera
+          <span class="key">R</span> Reset
+        </div>
+      </div>
+
+      <!-- Forza Horizon 6 Digital Instrument Cluster -->
+      <div class="speedometer-cluster">
+        <div class="nitro-bar-container">
+          <div class="nitro-header">
+            <span class="nitro-label">NOS TURBO BOOST</span>
+            <span id="nitroPercent" class="nitro-pct">100%</span>
+          </div>
+          <div class="nitro-bar-bg">
+            <div id="nitroBar" class="nitro-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="speed-readout">
+          <span id="speedValue">0</span>
+          <span class="speed-unit">MPH</span>
+        </div>
+
+        <div class="gauge-footer">
+          <div class="gear-box">
+            <span class="gear-sub">GEAR</span>
+            <span id="gearValue">1</span>
+          </div>
+          <div class="rpm-lights" id="rpmLights">
+            <span class="rpm-dot"></span>
+            <span class="rpm-dot"></span>
+            <span class="rpm-dot"></span>
+            <span class="rpm-dot"></span>
+            <span class="rpm-dot"></span>
+            <span class="rpm-dot red"></span>
+            <span class="rpm-dot red"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Synthesizer -->
+  <script src="forza_audio.js"></script>
+  <!-- Main 3D Engine -->
+  <script src="forza_game.js"></script>
+</body>
+</html>
